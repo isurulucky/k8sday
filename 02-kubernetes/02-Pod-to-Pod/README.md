@@ -19,5 +19,5 @@ http://MINIKUBE_IP:32200/employee
 ### Clean the setup
 
 ```
-	kubectl delete -f ./
+kubectl delete -f ./
 ```
