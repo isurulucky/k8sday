@@ -18,5 +18,5 @@ kubectl rolling-update my-nginx --rollback
 ### Clean the setup
 
 ```
-	kubectl delete -f ./
+kubectl delete -f ./
 ```
