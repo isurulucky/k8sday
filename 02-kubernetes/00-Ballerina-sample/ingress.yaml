@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ballerina-ingress
+  labels:
+    event: k8sday
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: k8sday.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: ballerina-service
+          servicePort: 9090

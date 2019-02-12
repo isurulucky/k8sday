@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-options-deployment
+  labels:
+    event: k8sday
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      event: k8sday
+      service: stock-options
+  template:
+    metadata:
+      labels:
+        event: k8sday
+        service: stock-options
+    spec:
+      containers:
+      -
+        image: pubudu/stock-options:v1.0
+        name: stock-options
+        imagePullPolicy: IfNotPresent
+        ports:
+        -
+          containerPort: 8080
+          name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock-options-service
+  labels:
+    event: k8sday
+spec:
+  ports:
+    # ports that this service should serve on
+    -
+      name: web
+      port: 8080
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    event: k8sday
+    service: stock-options

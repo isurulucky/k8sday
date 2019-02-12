@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ballerina-deployment
+  labels:
+    event: k8sday
+spec:
+  strategy:
+    type: Recreate
+  replicas: 2
+  selector:
+    matchLabels:
+      event: k8sday
+  template:
+    metadata:
+      labels:
+        event: k8sday
+    spec:
+      containers:
+      -
+        image: pubudu/hello_service:latest
+        name: helloworld
+        imagePullPolicy: IfNotPresent
+        ports:
+        -
+          containerPort: 9090
+          name: web
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: 9090
+        #   initialDelaySeconds: 60
+        #   periodSeconds: 20
+        # readinessProbe:
+        #   tcpSocket:
+        #     port: 9090
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ballerina-service
+  labels:
+    event: k8sday
+spec:
+  type: NodePort
+  ports:
+    # ports that this service should serve on
+    -
+      name: web
+      port: 9090
+      targetPort: 9090
+      nodePort: 32100
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    event: k8sday

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-deployment
+  labels:
+    event: k8sday
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      event: k8sday
+      service: employee
+  template:
+    metadata:
+      labels:
+        event: k8sday
+        service: employee
+    spec:
+      containers:
+      -
+        image: pubudu/employee:v1.0
+        name: employee
+        imagePullPolicy: IfNotPresent
+        ports:
+        -
+          containerPort: 9090
+          name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-service
+  labels:
+    event: k8sday
+spec:
+  type: NodePort
+  ports:
+    # ports that this service should serve on
+    -
+      name: web
+      port: 9090
+      targetPort: 9090
+      nodePort: 32200
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    event: k8sday
+    service: employee
