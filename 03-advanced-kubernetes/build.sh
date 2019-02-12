@@ -2,7 +2,7 @@
 
 export CGO_ENABLED=0
 DOCKER_REPO=mirage20
-DOCKER_TAG=v1.0.0
+DOCKER_TAG=v1.1.0
 
 go build -o hello-controller -x ./cmd/controller
 

@@ -25,7 +25,7 @@
 
 #### Running the sample
 
-    kubectl apply -f sample/my-hello.yaml
+    kubectl apply -f ./sample/my-hello.yaml
     
 #### Testing the sample
 
@@ -46,3 +46,11 @@
 If you have a cluster with Istio installed, please disable sidecar injection
 
     kubectl label namespace default istio-injection=disabled --overwrite
+
+
+#### Cleaning the cluster
+
+    kubectl delete -f ./sample/my-hello.yaml
+    kubectl delete -f ./artifacts/controller.yaml
+    kubectl delete -f ./artifacts/crd.yaml
+    kubectl delete pod debug-tools

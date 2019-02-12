@@ -102,6 +102,6 @@ spec:
       containers:
       - name: controller
         # Change the docker ID if you have pushed to your own docker repo
-        image: mirage20/k8s-hello-controller:v1.0.0
+        image: mirage20/k8s-hello-controller:v1.1.0
         imagePullPolicy: Always
       serviceAccountName: hello-controller
