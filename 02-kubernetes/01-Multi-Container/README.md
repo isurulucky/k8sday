@@ -17,5 +17,5 @@ kubectl exec multi-container-pod -c 2nd -- /bin/cat /html/index.html
 ### Clean the setup
 
 ```
-	kubectl delete -f multi-container-pod.yaml
+kubectl delete -f multi-container-pod.yaml
 ```
