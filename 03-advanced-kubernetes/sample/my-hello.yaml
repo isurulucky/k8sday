@@ -1,0 +1,7 @@
+apiVersion: demo.wso2.com/v1alpha1
+kind: Hello
+metadata:
+  name: my-hello
+spec:
+  subject: World
+  replicas: 2
