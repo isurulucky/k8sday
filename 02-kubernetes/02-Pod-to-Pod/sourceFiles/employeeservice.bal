@@ -1,8 +1,10 @@
+import ballerina/config;
 import ballerina/http;
 import ballerinax/docker;
+import ballerinax/kubernetes;
+import ballerina/io;
 
 listener http:Listener passthroughEP1 = new(9090);
-
 
 @docker:Config {
 registry:"pubudu",
@@ -17,7 +19,11 @@ service passthroughService on passthroughEP1 {
         path: "/"
     }
     resource function passthrough(http:Caller caller, http:Request clientRequest) {
-        http:Client nyseEP1 = new("http://stock-options-service:8080");
+
+        http:Client nyseEP1 = new(getConfigValue("/home/ballerina/data/stock-url"));
+
+        io:println("Request recieved !");
+        io:println(getConfigValue("/home/ballerina/data/stock-url"));
         clientRequest.setHeader("x-name", "bob");
         var response = nyseEP1->get("/stock/options", message = untaint clientRequest);
 
@@ -32,10 +38,25 @@ service passthroughService on passthroughEP1 {
                 response.setPayload(untaint msg);
             }
 
-            _ = caller->respond(response);
+            _ = caller->respond(untaint response);
         } else {
             _ = caller->respond({ "error": "error occurred while invoking the service" });
         }
     }
 
+}
+
+
+function getConfigValue(string filePath) returns (string) {
+
+    io:ReadableByteChannel bchannel = io:openReadableFile(filePath);
+    io:ReadableCharacterChannel cChannel = new io:ReadableCharacterChannel(bchannel, "UTF-8");
+
+    var readOutput = cChannel.read(50);
+    if (readOutput is string) {
+        return readOutput;
+    } else {
+        return "Error: Unable to read file";
+    }
+    
 }

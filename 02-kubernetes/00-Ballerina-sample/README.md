@@ -36,7 +36,7 @@ http://MINIKUBE_IP:32100/helloWorld/sayHello
 ### Deploy the ingress controller
 
 ```
-minikube addons enable ingress
+kubectl create -f nginx-ingress/
 
 kubectl get pods -n kube-system
 
