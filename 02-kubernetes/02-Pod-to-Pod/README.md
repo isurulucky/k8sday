@@ -15,6 +15,7 @@ kubectl describe service employee-service
 
 http://MINIKUBE_IP:32200/employee
 
+* Note: MINIKUBE_IP is localhost for Mac users
 
 ### Clean the setup
 

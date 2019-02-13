@@ -29,16 +29,34 @@ kubectl describe services ballerina-service
 
 ### Access the service via NodePort
 
+
 ```
+kubectl get service ballerina-service -o json
+
+kubectl get service ballerina-service -o jsonpath='{.spec.ports[?(@.name=="web")].nodePort}'
+
 http://MINIKUBE_IP:32100/helloWorld/sayHello
 ```
 
+* Note: MINIKUBE_IP is localhost for Mac users
+
 ### Deploy the ingress controller
 
-```
-kubectl create -f nginx-ingress/
+#### For Docker For Mac
 
+```
+kubectl apply -f dockerForMac/nginx-ingress/namespaces/nginx-ingress.yaml -Rf dockerForMac/nginx-ingress
+```
+
+#### For Minikube
+```
+minikube addons enable ingress
+```
+
+```
 kubectl get pods -n kube-system
+
+kubectl get pods -n nginx-ingress
 
 kubectl create -f ingress.yaml
 
@@ -51,6 +69,8 @@ kubectl get ing
 ```
 IP_Address k8sday.com
 ```
+
+* Note: IP_Address is localhost for Mac users
 
 ### Access the service via Ingress
 

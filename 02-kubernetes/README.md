@@ -1,6 +1,6 @@
 ## Kubernetes Cluster
 
-### MiniKube 
+### MiniKube for Ubuntu
 
 ```
 minikube start --kubernetes-version v1.11.5
@@ -14,6 +14,14 @@ minikube ip
 minikube logs
 
 minikube docker-env
+```
+
+### Docker for Mac
+
+### Kubectl Configuration
+
+```
+kubectl config view
 ```
 
 ### Cluster information
