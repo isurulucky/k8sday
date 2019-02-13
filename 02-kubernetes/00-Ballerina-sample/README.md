@@ -98,5 +98,7 @@ kubectl label pod POD_ID event-
 
 ```
 kubectl delete -f ./
+
+kubectl delete pod POD_ID
 ```
 
