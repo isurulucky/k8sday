@@ -3,6 +3,8 @@
 mkdir ~/kday
 #Download "K-Day 01" VirtualBox image (vdi).
 wget http://atuwa.private.wso2.com/VMs/K-Day%2001.vdi.tgz -P ~/kday
+cd ~/kday
+tar -xzvf K-Day%2001.vdi.tgz
 #Create VirtualBox entry.
 VBoxManage createvm --name "K-Day 01" --ostype Ubuntu_64 --register
 #Create ssh port forwarding.
