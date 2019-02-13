@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export CGO_ENABLED=0
-DOCKER_REPO=mirage20
+DOCKER_REPO=<your_dockerhub_id>
 DOCKER_TAG=v1.1.0
 
 go build -o hello-controller -x ./cmd/controller

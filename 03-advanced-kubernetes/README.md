@@ -8,7 +8,7 @@
 
 #### Build and push to your own repository
 
-1. Open the ./build.sh and change the `DOCKER_REPO` variable with your docker ID
+1. Open the ./build.sh and change the `DOCKER_REPO` variable with your docker hub ID
 2. Run ./build.sh
 
 #### Running the controller in your machine
