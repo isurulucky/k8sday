@@ -38,6 +38,8 @@ http://MINIKUBE_IP:32100/helloWorld/sayHello
 ```
 minikube addons enable ingress
 
+kubectl get pods -n kube-system
+
 kubectl create -f ingress.yaml
 
 kubectl get ing
