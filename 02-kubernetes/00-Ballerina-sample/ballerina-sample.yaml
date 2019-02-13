@@ -25,6 +25,11 @@ spec:
         -
           containerPort: 9090
           name: web
+        env:
+        - name: HELLO_WORLD
+          value: "Hello from the environment"
+        - name: WSO2
+          value: "Hello WSO2"
         # livenessProbe:
         #   tcpSocket:
         #     port: 9090
