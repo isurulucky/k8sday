@@ -229,57 +229,63 @@ func (c *Controller) syncHandler(key string) error {
 
 	// ======================= End Create Service ==============================
 
+
+	// ======================= Start Update Cluster ==============================
+
+
 	// If this number of the replicas on the Hello resource is specified, and the
 	// number does not equal the current desired replicas on the Deployment, we
 	// should update the Deployment resource.
-	if hello.Spec.Replicas != nil && *hello.Spec.Replicas != *deployment.Spec.Replicas {
-		glog.Infof("Hello %s replicas: %d, deployment replicas: %d", name, *hello.Spec.Replicas, *deployment.Spec.Replicas)
-		deployment, err = c.kubeclientset.AppsV1().Deployments(hello.Namespace).Update(newHelloDeployment(hello))
-	}
+	//if hello.Spec.Replicas != nil && *hello.Spec.Replicas != *deployment.Spec.Replicas {
+	//	glog.Infof("Hello %s replicas: %d, deployment replicas: %d", name, *hello.Spec.Replicas, *deployment.Spec.Replicas)
+	//	deployment, err = c.kubeclientset.AppsV1().Deployments(hello.Namespace).Update(newHelloDeployment(hello))
+	//}
 
 	// If an error occurs during Update, we'll requeue the item so we can
 	// attempt processing again later. THis could have been caused by a
 	// temporary network failure, or any other transient reason.
-	if err != nil {
-		return err
-	}
+	//if err != nil {
+	//	return err
+	//}
 
 	// Update the hello subject if its changed.
-	if len(hello.Spec.Subject) > 0 && hello.Spec.Subject != deployment.Annotations["subject"] {
-		glog.Infof("Hello %s subject: %d, deployment subject: %d", name, hello.Spec.Subject, deployment.Annotations["subject"])
-		deployment, err = c.kubeclientset.AppsV1().Deployments(hello.Namespace).Update(newHelloDeployment(hello))
-	}
+	//if len(hello.Spec.Subject) > 0 && hello.Spec.Subject != deployment.Annotations["subject"] {
+	//	glog.Infof("Hello %s subject: %d, deployment subject: %d", name, hello.Spec.Subject, deployment.Annotations["subject"])
+	//	deployment, err = c.kubeclientset.AppsV1().Deployments(hello.Namespace).Update(newHelloDeployment(hello))
+	//}
 
 	// If an error occurs during Update, we'll requeue the item so we can
 	// attempt processing again later. THis could have been caused by a
 	// temporary network failure, or any other transient reason.
-	if err != nil {
-		return err
-	}
+	//if err != nil {
+	//	return err
+	//}
+
+	// ======================= End Update Cluster ==============================
 
 	// Finally, we update the status block of the Hello resource to reflect the
 	// current state of the world
-	err = c.updateHelloStatus(hello, deployment)
-	if err != nil {
-		return err
-	}
+	//err = c.updateHelloStatus(hello, deployment)
+	//if err != nil {
+	//	return err
+	//}
 
 	return nil
 }
 
-func (c *Controller) updateHelloStatus(hello *demov1alpha1.Hello, deployment *appsv1.Deployment) error {
-	// NEVER modify objects from the store. It's a read-only, local cache.
-	// You can use DeepCopy() to make a deep copy of original object and modify this copy
-	// Or create a copy manually for better performance
-	helloCopy := hello.DeepCopy()
-	helloCopy.Status.AvailableReplicas = deployment.Status.AvailableReplicas
-	// If the CustomResourceSubresources feature gate is not enabled,
-	// we must use Update instead of UpdateStatus to update the Status block of the Hello resource.
-	// UpdateStatus will not allow changes to the Spec of the resource,
-	// which is ideal for ensuring nothing other than resource status has been updated.
-	_, err := c.democlientset.DemoV1alpha1().Hellos(hello.Namespace).Update(helloCopy)
-	return err
-}
+//func (c *Controller) updateHelloStatus(hello *demov1alpha1.Hello, deployment *appsv1.Deployment) error {
+//	// NEVER modify objects from the store. It's a read-only, local cache.
+//	// You can use DeepCopy() to make a deep copy of original object and modify this copy
+//	// Or create a copy manually for better performance
+//	helloCopy := hello.DeepCopy()
+//	helloCopy.Status.AvailableReplicas = deployment.Status.AvailableReplicas
+//	// If the CustomResourceSubresources feature gate is not enabled,
+//	// we must use Update instead of UpdateStatus to update the Status block of the Hello resource.
+//	// UpdateStatus will not allow changes to the Spec of the resource,
+//	// which is ideal for ensuring nothing other than resource status has been updated.
+//	_, err := c.democlientset.DemoV1alpha1().Hellos(hello.Namespace).Update(helloCopy)
+//	return err
+//}
 
 // enqueueHello takes a Hello resource and converts it into a namespace/name
 // string which is then put onto the work queue. This method should *not* be
@@ -300,13 +306,14 @@ func newHelloDeployment(hello *demov1alpha1.Hello) *appsv1.Deployment {
 	podTemplateAnnotations := map[string]string{}
 	// Uncomment following line if you have istio installed
 	podTemplateAnnotations["sidecar.istio.io/inject"] = "false"
+	one := int32(1)
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      deploymentName(hello),
 			Namespace: hello.Namespace,
-			Annotations: map[string]string{
-				"subject": hello.Spec.Subject,
-			},
+			//Annotations: map[string]string{
+			//	"subject": hello.Spec.Subject,
+			//},
 			OwnerReferences: []metav1.OwnerReference{
 				*metav1.NewControllerRef(hello, schema.GroupVersionKind{
 					Group:   demov1alpha1.SchemeGroupVersion.Group,
@@ -316,7 +323,8 @@ func newHelloDeployment(hello *demov1alpha1.Hello) *appsv1.Deployment {
 			},
 		},
 		Spec: appsv1.DeploymentSpec{
-			Replicas: hello.Spec.Replicas,
+			Replicas: &one,
+			//Replicas: hello.Spec.Replicas,
 			Selector: &metav1.LabelSelector{
 				MatchLabels: helloLabels(hello),
 			},
@@ -332,8 +340,8 @@ func newHelloDeployment(hello *demov1alpha1.Hello) *appsv1.Deployment {
 							Image: "mirage20/k8s-hello-service:latest",
 							Command: []string{
 								"/k8s-hello-service",
-								"--subject",
-								hello.Spec.Subject,
+								//"--subject",
+								//hello.Spec.Subject,
 							},
 						},
 					},

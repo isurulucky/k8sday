@@ -9,11 +9,11 @@ spec:
     kind: Hello
     plural: hellos
   scope: Namespaced
-  additionalPrinterColumns:
-  - name: Available-Replicas
-    type: integer
-    description: Number of replicas available for this service
-    JSONPath: .status.availableReplicas
-  - name: Age
-    type: date
-    JSONPath: .metadata.creationTimestamp
+#  additionalPrinterColumns:
+#  - name: Available-Replicas
+#    type: integer
+#    description: Number of replicas available for this service
+#    JSONPath: .status.availableReplicas
+#  - name: Age
+#    type: date
+#    JSONPath: .metadata.creationTimestamp

@@ -16,12 +16,12 @@ type Hello struct {
 }
 
 type HelloSpec struct {
-	Subject  string `json:"subject"`
-	Replicas *int32 `json:"replicas"`
+	//Subject  string `json:"subject"`
+	//Replicas *int32 `json:"replicas"`
 }
 
 type HelloStatus struct {
-	AvailableReplicas int32 `json:"availableReplicas"`
+	//AvailableReplicas int32 `json:"availableReplicas"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
