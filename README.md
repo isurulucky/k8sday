@@ -1,28 +1,3 @@
-## Kubernetes Cluster
+# k8sday
 
-### Cluster information
-
-```
-    kubectl cluster-info
-```
-### Node information
-
-```
-    kubectl get nodes
-
-    kubectl get nodes -owide
-
-    kubectl describe nodes
-```
-
-### MiniKube 
-
-```
-minikube ssh
-
-minikube dashboard
-
-minikube ip
-
-minikube logs
-```
+Training material for the WSO2 Kubernetes workshop.
