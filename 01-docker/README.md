@@ -111,7 +111,7 @@ docker history manjula/k8sday.demo.service:1.0.0
 docker rmi -f manjula/k8sday.demo.service:1.0.0
 ```
 
-## DockerBest practices
+## Docker best practices
 * Container should be immutable. No patching of running container, rather start with a new image with patches and run a container of it.
 * Do not run software as root. Create a less privileged user.
 * No need to install ssh iside the container, use exec -it image /bin/bash instead.
