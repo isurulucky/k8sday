@@ -61,6 +61,8 @@ http://k8sday/helloWorld/sayHello
 ```
 kubectl get pods -l event=k8sday
 
+kubectl describe pod POD_ID
+
 kubectl describe service ballerina-service
 
 kubectl label pod POD_ID event-
