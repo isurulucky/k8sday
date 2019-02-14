@@ -97,7 +97,7 @@ kubectl label pod POD_ID event-
 ### Clean the setup
 
 ```
-kubectl delete -f ./
+kubectl delete -f ./ -R
 
 kubectl delete pod POD_ID
 ```
