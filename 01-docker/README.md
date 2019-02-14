@@ -62,7 +62,7 @@ curl http://127.0.0.1:<HostPort>/helloWorld/sayHello
 docker logs <ContainerID> (shows logs of the container)
 docker inspect <ContainerID> (shows the complete details such as docker image, envs, commands, mounts, network settings etc)
 docker top <ContainerID> (shows running processes in container)
-docker stat <ContainerID> (shows containers' resource usage statistics)
+docker stats <ContainerID> (shows containers' resource usage statistics)
 docker diff <ContainerID> (shows changed files in the container's file system)
 ```
 * Run container with cpu, memory resource limits
