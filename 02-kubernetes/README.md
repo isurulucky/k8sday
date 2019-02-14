@@ -38,4 +38,3 @@ kubectl get nodes -owide
 
 kubectl describe nodes
 ```
-

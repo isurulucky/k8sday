@@ -1,6 +1,12 @@
 ## Deploy Ballerina Sample APP in K8s
 
 ```
+docker save pubudu/hello_service:latest > image.tar
+
+minikube docker-env
+
+docker load < image.tar
+
 kubectl create -f ballerina-sample.yaml
 
 kubectl get all
@@ -54,8 +60,10 @@ minikube addons enable ingress
 ```
 
 ```
+## For Minikube only
 kubectl get pods -n kube-system
 
+## For Mac only
 kubectl get pods -n nginx-ingress
 
 kubectl create -f ingress.yaml
@@ -75,7 +83,7 @@ IP_Address k8sday.com
 ### Access the service via Ingress
 
 ```
-http://k8sday/helloWorld/sayHello
+http://k8sday.com/helloWorld/sayHello
 ```
 
 ### K8s Labels
