@@ -12,6 +12,6 @@ VBoxManage modifyvm "K-Day 01" --ostype Ubuntu_64 --cpus 2 --memory 4000 --natpf
 #Create the sata controller.
 VBoxManage storagectl "K-Day 01"  --name hd1 --add sata --portcount 2
 #Point the downloaded ubuntu vdi file using media switch.
-VboxManage storageattach "K-Day 01" --storagectl hd1 --port 1 --type hdd --medium  "~/kday/K-Day 01.vdi" --setuuid ""
+VBoxManage storageattach "K-Day 01" --storagectl hd1 --port 1 --type hdd --medium  ~/kday/K-Day\ 01.vdi --setuuid ""
 #Start the vm
 VBoxManage startvm "K-Day 01"
